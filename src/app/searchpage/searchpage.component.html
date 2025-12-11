@@ -1,0 +1,31 @@
+<div class="upload-container">
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+    <!-- Text Input -->
+    <div class="form-group">
+      <label>Enter Search Content</label>
+      <input [(ngModel)]="query"
+        type="text"
+        formControlName="textInput"
+        placeholder="Search Here"
+      />
+    </div>
+
+    <!-- File Upload -->
+    <div class="form-group">
+      <label>Upload File</label>
+      <input type="file" class="file_class" (change)="onFileSelect($event)" />
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" [disabled]="loading">Submit
+    </button>
+  </form>
+
+  <!-- Loading Bar -->
+  <div class="progress-bar" *ngIf="loading">
+    <div class="progress-fill" [style.width.%]="progress"></div>
+  </div>
+
+</div>
