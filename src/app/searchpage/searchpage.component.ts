@@ -20,6 +20,9 @@ export class SearchpageComponent {
   errorMessage: string = '';
   showJson: boolean = false;
   s3_upload_url: string = '';
+  // list_of_urls = [{"title":"Java | Oracle","url":"https:\/\/www.java.com\/"},{"title":"Java Tutorial","url":"https:\/\/www.w3schools.com\/java\/"},{"title":"Oracle Java Technologies","url":"https:\/\/www.oracle.com\/java\/technologies\/"},{"title":"Java Tutorial","url":"https:\/\/www.geeksforgeeks.org\/java\/java\/"},{"title":"Device Not Supported","url":"https:\/\/www.java.com\/download\/"},{"title":"Java (programming language)","url":"https:\/\/en.wikipedia.org\/wiki\/Java_(programming_language)"},{"title":"Dev.java: The Destination for Java Developers","url":"https:\/\/dev.java\/"},{"title":"Online Java Compiler","url":"https:\/\/www.programiz.com\/java-programming\/online-compiler\/"},{"title":"Download Java","url":"https:\/\/www.java.com\/en\/download\/manual.jsp"},{"title":"Java Software","url":"https:\/\/www.oracle.com\/in\/java\/"}];
+list_of_urls: any;
+  selectedRow: any;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.formGroup = this.fb.group({
@@ -91,6 +94,51 @@ export class SearchpageComponent {
     }, 300);
   }
 
+  // onSubmit() {
+  //   if (!this.query.trim()) {
+  //     this.errorMessage = "Please enter a search query";
+  //     return;
+  //   }
+
+  //   this.loading = true;
+  //   this.errorMessage = '';
+  //   this.result = null;
+  //   this.showJson = false;
+
+  //   const jsonContent = `{"search_content":"${this.query}",
+  //   "s3_upload_url":"${this.s3_upload_url}"}`;
+
+  //   console.log('Sending JSON content:', jsonContent);
+
+  //   this.http.post<any>('http://localhost:8092/api/scrape', jsonContent)
+  //     .subscribe({
+  //       next: (data) => {
+  //         this.result = data;
+
+  //         console.log('Search results:', data);
+
+  //         alert("Search Completed!");
+  //         this.loading = false;
+  //       },
+  //       error: (error) => {
+  //         this.errorMessage = error.error?.error || 'Failed to fetch search results';
+  //         this.loading = false;
+  //         console.error('Error:', error);
+  //       }
+  //     });
+  // }
+
+  onReset()
+  {
+    this.list_of_urls = [];
+    this.result = null;
+    this.query = '';
+    this.selectedFile = null;
+    this.s3_upload_url = '';
+    this.loading = false;
+  }
+
+
   onSubmit() {
     if (!this.query.trim()) {
       this.errorMessage = "Please enter a search query";
@@ -98,16 +146,31 @@ export class SearchpageComponent {
     }
 
     this.loading = true;
-    this.errorMessage = '';
-    this.result = null;
-    this.showJson = false;
+  
+    this.http.get("http://localhost:8092/api/suggestions?query=" + this.query)
+      .subscribe({
+        next: (data) => {
+          this.list_of_urls = data;
 
-    const jsonContent = `{"search_content":"${this.query}",
-    "s3_upload_url":"${this.s3_upload_url}"}`;
+          console.log('Search results suggestions:', this.list_of_urls);
 
-    console.log('Sending JSON content:', jsonContent);
+          alert("Search Completed!");
+          this.loading = false;
+        },
+        error: (error) => {
+          this.errorMessage = error.error?.error || 'Failed to fetch search results';
+          this.loading = false;
+          console.error('Error:', error);
+        }
+      });
+  }
 
-    this.http.post<any>('http://localhost:8092/api/scrape', jsonContent)
+  onUrlSelect(row: any) {
+    this.selectedRow = row;
+    console.log('Selected URL:', row);
+    this.loading = true;
+
+    this.http.post<any>('http://localhost:8092/api/scrape', this.selectedRow)
       .subscribe({
         next: (data) => {
           this.result = data;

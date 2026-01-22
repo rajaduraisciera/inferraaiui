@@ -5,27 +5,185 @@
     <!-- Text Input -->
     <div class="form-group">
       <label>Enter Search Content</label>
-      <input [(ngModel)]="query"
-        type="text"
-        formControlName="textInput"
-        placeholder="Search Here"
-      />
+      <div class="search_reset">
+        <input [(ngModel)]="query" type="text" class="inputsearch" formControlName="textInput"
+          placeholder="Search Here" />
+        <button type="submit" class="resetbutton" (click)="onReset()"><i class="fa-solid fa-arrows-rotate"></i>
+        </button>
+      </div>
     </div>
 
     <!-- File Upload -->
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label>Upload File</label>
       <input type="file" class="file_class" (change)="onFileSelect($event)" />
-    </div>
+    </div> -->
 
     <!-- Submit Button -->
-    <button type="submit" [disabled]="loading">Submit
+    <button type="submit" [disabled]="loading">Search
     </button>
   </form>
 
   <!-- Loading Bar -->
   <div class="progress-bar" *ngIf="loading">
     <div class="progress-fill" [style.width.%]="progress"></div>
+  </div>
+
+  <div class="url-list" *ngIf="list_of_urls && list_of_urls.length > 0 && query">
+    <h3>Google Suggestions For : {{ query }}</h3>
+    <div *ngFor="let urls of list_of_urls; let i = index" class="url-item">
+      <input id="urlOption{{i}}" type="radio" name="urlOptions" class="url-radio" [checked]="selectedRow === urls"
+        (change)="onUrlSelect(urls)" />
+      <label for="urlOption{{i}}" class="url-label">
+        <span class="site-name">{{ urls.title }}</span>
+        <a class="site-link" href="{{ urls.url }}" target="_blank" rel="noopener noreferrer">{{ urls.url }}</a>
+      </label>
+    </div>
+  </div>
+
+
+  <!-- Results display -->
+  <div *ngIf="result && !loading && query" class="results-section">
+    <h3 class="results-title">Results for: {{ (result?.inputQuery || query) }}</h3>
+    <p class="timestamp" *ngIf="result?.timestamp">Updated {{ result?.timestamp | date:'medium' }}</p>
+
+    <!-- Structured cards -->
+    <div class="results-grid" *ngIf="result?.results?.length">
+      <div class="result-card" *ngFor="let item of result.results">
+        <div class="result-header">
+          <h4 class="result-title">{{ item.title }}</h4>
+          <a class="result-link" href="{{ item.url }}" target="_blank" rel="noopener noreferrer">Visit source</a>
+        </div>
+
+        <p class="result-description" *ngIf="item.ai_data?.description">{{ item.ai_data.description }}</p>
+
+        <!-- Metals table -->
+        <div class="metals-section" *ngIf="item.ai_data?.metals?.length">
+          <div class="section-title">Details</div>
+          <table class="metals-table">
+            <thead>
+              <tr>
+                <th>Weight</th>
+                <th>Price</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let m of item.ai_data.metals">
+                <td>{{ m.metal_type }}</td>
+                <td>{{ m.price }}</td>
+                <td>{{ m.date }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ratings extras -->
+        <div class="other-info" *ngIf="item.ai_data?.ratings?.length">
+          <span class="badge">Rating: {{ item.ai_data.ratings }}</span>
+        </div>
+
+        <!-- menu items extras -->
+        <div class="other-info" *ngIf="item.ai_data?.menu_items?.length">
+          <span class="badge">Features: {{ item.ai_data.menu_items }}</span>
+        </div>
+
+        <!-- speeds extras -->
+        <div class="other-info" *ngIf="item.ai_data?.speeds?.length">
+          <div class="section-title">Speeds Details</div>
+          <table class="metals-table">
+            <thead>
+              <tr>
+                <th>Download</th>
+                <th>Upload</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let m of item.ai_data.speeds">
+                <td>{{ m.download }}</td>
+                <td>{{ m.upload }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- products extras -->
+        <div class="other-info" *ngIf="item.ai_data?.products?.length">
+          <div class="section-title">Products Details</div>
+          <table class="metals-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let m of item.ai_data.products">
+                <td>{{ m.name }}</td>
+                <td>{{ m.price }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- hotellist extras -->
+        <div class="other-info" *ngIf="item.ai_data?.hotellist?.length">
+          <div class="section-title">Hotel Details</div>
+          <table class="metals-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Ratings</th>
+                <th>Reviews</th>
+                <th>Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let m of item.ai_data.hotellist">
+                <td>{{ m.name }}</td>
+                <td>⭐{{ m.ratings }}</td>
+                <td>{{ m.reviews }}</td>
+                <td>{{ m.address }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- apartment extras -->
+        <div class="other-info" *ngIf="(item.ai_data?.aptdetails?.length) && 
+        (item.ai_data?.speeds?.length === 0 && item.ai_data?.hotellist?.length === 0 && item.ai_data?.products?.length === 0 && 
+          item.ai_data?.menu_items?.length === 0 && item.ai_data?.ratings?.length === 0 && item.ai_data?.metals?.length === 0
+        )">
+          <div class="section-title">Apartment Details</div>
+          <table class="metals-table">
+            <thead>
+              <tr>
+                <th>Apt Type</th>
+                <th>Beds</th>
+                <th>Baths</th>
+                <th>Sqft</th>
+                <th>Highlights</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let m of item.ai_data.aptdetails">
+                <td>{{ m.apt_type }}</td>
+                <td>{{ m.bedrooms }}</td>
+                <td>{{ m.bathrooms }}</td>
+                <td>{{ m.sqft }}</td>
+                <td>{{ m.highlights }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fallback: raw JSON if no structured results -->
+    <div class="empty-state" *ngIf="!result?.results?.length">
+      <p>No structured results available. Showing raw JSON:</p>
+      <pre>{{ result | json }}</pre>
+    </div>
   </div>
 
 </div>
