@@ -13,18 +13,67 @@
       <button [class.active]="activeTab==='FILE'" (click)="switchTab('FILE')">
         Upload File
       </button>
+
+      <select class="searchtypedropdown" aria-label="Select Item" [(ngModel)]="selectedSearchType"
+        (change)="resetSearch()">
+        <option value="" disabled selected hidden>Search Type</option>
+        <option value="scadaa">Scadaa</option>
+        <option value="generic">Generic</option>
+      </select>
     </div>
     <button class="reset-btn" (click)="reset()"><b>Reset</b></button>
   </div>
 
-  <!-- INPUT SECTION -->
-  <div class="input-card" *ngIf="activeTab==='TEXT'">
 
+  <!-- INPUT SECTION - Generic -->
+  <div class="input-card" *ngIf="activeTab==='TEXT' && genericEnable">
+    <p style="color: black;">Generic Search</p>
     <input class="text-box" placeholder="Enter your question..." [(ngModel)]="inputText">
+
     <button class="submit-btn" (click)="submitText()" [disabled]="!inputText">
       Submit
     </button>
   </div>
+
+  <!-- INPUT SECTION - Scadaa -->
+  <div class="input-card" *ngIf="activeTab==='TEXT' && scadaaEnable">
+    <p style="color: black;">Scadaa Search</p>
+    <select class="searchtypedropdown" aria-label="Select Item" [(ngModel)]="selectedSubProjectType"
+      (change)="searchCategoryForSubProject($event)">
+      <option value="" disabled selected hidden>Sub Project</option>
+      <option value="realestate">Realestate</option>
+      <option value="ctelprocess">CTEL</option>
+      <option value="countysales">County Sales</option>
+      <option value="propertyrecords">Property Records</option>
+      <option value="promowatchprocess">Promowatch</option>
+      <option value="apartment">Apartment</option>
+    </select>
+
+    <select class="searchtypedropdown" aria-label="Select Item" [(ngModel)]="selectedSource">
+      <option value="" disabled selected hidden>Sources</option>
+      <option *ngFor="let project of subProjectTypes">
+        {{ project }}
+      </option>
+    </select>
+
+    <input class="text-box" placeholder="Enter address..." [(ngModel)]="inputText" *ngIf="addressBasedInput">
+
+    <select class="searchtypedropdown" aria-label="Select Item" [(ngModel)]="selectedInputTypeNonAddress"
+      *ngIf="nonAddressBasedInput">
+      <option value="" disabled selected hidden>Input Category</option>
+      <option *ngFor="let inputtype of inputTypeNonAddress">
+        {{ inputtype }}
+      </option>
+    </select>
+
+    <input class="text-box" placeholder="Enter address..." [(ngModel)]="inputText" *ngIf="nonAddressBasedInput">
+
+    <button class="submit-btn" (click)="submitText()" [disabled]="!inputText">
+      Submit
+    </button>
+  </div>
+
+
 
 
   <div class="input-card" *ngIf="activeTab==='FILE'">
@@ -52,7 +101,7 @@
 
       <!-- <div *ngIf="messages[messages.length - 1].title"><b>{{ messages[messages.length - 1].title }}</b></div>
       <div *ngIf="messages[messages.length - 1].detailurl">Detail Url{{ messages[messages.length - 1].detailurl }}</div> -->
-      
+
       <table *ngIf="tableData.length">
         <thead>
           <tr>
@@ -66,14 +115,14 @@
           <tr *ngFor="let row of tableData">
 
             <td *ngFor="let key of tableKeys">
-            <!-- Show value properly -->
-        <ng-container *ngIf="isObject(row[key]); else normalText">
-          {{ row[key] | json }}
-        </ng-container>
+              <!-- Show value properly -->
+              <ng-container *ngIf="isObject(row[key]); else normalText">
+                {{ row[key] | json }}
+              </ng-container>
 
-        <ng-template #normalText>
-          {{ row[key] }}
-        </ng-template>
+              <ng-template #normalText>
+                {{ row[key] }}
+              </ng-template>
             </td>
           </tr>
         </tbody>
@@ -85,7 +134,7 @@
     <div class="right-panel">
       <h3>Chatbox</h3>
       <div class="chat-box">
-        
+
         <div *ngFor="let msg of messages" [ngClass]="msg.type === 'user' ? 'user-msg' : 'bot-msg'">
 
           <!-- USER -->
