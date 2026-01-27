@@ -1,0 +1,129 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  padding : 0 10px; 
+ }
+
+ .nav-container {
+  /* max-width: 1000px; */
+  /* margin: 0 auto; */
+  padding: 0 25px;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ .nav-left {
+  display: flex;
+  align-items: center;
+  color: black;
+  gap: 2rem;
+  color: darkblue;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  /* padding-right: 50px; */
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+  }
+  
+  user-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .user-avatar {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .user-avatar:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .user-avatar img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-name {
+    margin: 0 8px;
+    font-size: 14px;
+    color: #0056b3;
+    font-weight: 600;
+  }
+  
+  .fa-chevron-down {
+    font-size: 12px;
+    color: #666;
+    transition: transform 0.2s ease;
+  }
+  
+  .dropdown-menu {
+    /* position: absolute; */
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+    overflow: hidden;
+    background-color: white;
+    min-width: 8.5rem;
+    border: none;
+  }
+  
+  .dropdown-menu:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .dropdown-header {
+    display: flex;
+    padding: 16px;
+    background-color: #f8f9fa;
+    align-items: center;
+  }
+  
+  .dropdown-user-info {
+    margin-right: 20px;
+    text-align: right;
+    /* overflow: hidden; */
+  }
+  
+  .dropdown-username {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+    /* margin-bottom: 4px; */
+  
+    /* white-space: nowrap; */
+    /* overflow: hidden; */
+    /* text-overflow: ellipsis; */
+  
+  }

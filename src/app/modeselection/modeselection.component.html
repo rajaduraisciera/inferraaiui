@@ -1,0 +1,118 @@
+<app-header></app-header>
+
+<div class="main-container">
+
+  <!-- TOP BAR -->
+  <div class="tabs-container">
+
+    <div class="tabs">
+      <button [class.active]="activeTab==='TEXT'" (click)="switchTab('TEXT')">
+        Send Text
+      </button>
+
+      <button [class.active]="activeTab==='FILE'" (click)="switchTab('FILE')">
+        Upload File
+      </button>
+    </div>
+    <button class="reset-btn" (click)="reset()"><b>Reset</b></button>
+  </div>
+
+  <!-- INPUT SECTION -->
+  <div class="input-card" *ngIf="activeTab==='TEXT'">
+
+    <input class="text-box" placeholder="Enter your question..." [(ngModel)]="inputText">
+    <button class="submit-btn" (click)="submitText()" [disabled]="!inputText">
+      Submit
+    </button>
+  </div>
+
+
+  <div class="input-card" *ngIf="activeTab==='FILE'">
+    <input class="text-box" placeholder="Enter description..." [(ngModel)]="inputText">
+    <div class="file-row">
+      <label>File Type</label>
+      <select [(ngModel)]="fileType">
+        <option value="inputfile">Input File</option>
+        <option value="resultfile">Result File</option>
+      </select>
+    </div>
+
+    <button class="submit-btn" (click)="upload()">
+      Upload
+    </button>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="content-grid">
+
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+
+      <h3>Results</h3>
+
+      <!-- <div *ngIf="messages[messages.length - 1].title"><b>{{ messages[messages.length - 1].title }}</b></div>
+      <div *ngIf="messages[messages.length - 1].detailurl">Detail Url{{ messages[messages.length - 1].detailurl }}</div> -->
+      
+      <table *ngIf="tableData.length">
+        <thead>
+          <tr>
+            <th *ngFor="let key of tableKeys">
+              {{ key | titlecase }}
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let row of tableData">
+
+            <td *ngFor="let key of tableKeys">
+            <!-- Show value properly -->
+        <ng-container *ngIf="isObject(row[key]); else normalText">
+          {{ row[key] | json }}
+        </ng-container>
+
+        <ng-template #normalText>
+          {{ row[key] }}
+        </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <h3>Chatbox</h3>
+      <div class="chat-box">
+        
+        <div *ngFor="let msg of messages" [ngClass]="msg.type === 'user' ? 'user-msg' : 'bot-msg'">
+
+          <!-- USER -->
+          <div *ngIf="msg.type === 'user'" class="chat-bubble user">
+            {{ msg.content }}
+          </div>
+
+          <!-- BOT TEXT -->
+          <div *ngIf="msg.type === 'bot' && !msg.isJson" class="chat-bubble bot">
+            {{ msg.content }}
+          </div>
+
+          <!-- BOT JSON -->
+          <pre *ngIf="msg.type === 'bot' && msg.isJson" class="chat-bubble json">
+           {{ msg.content | json }}
+          </pre>
+        </div>
+      </div>
+
+
+      <!-- CHAT INPUT -->
+      <div class="chat-input">
+        <input placeholder="Ask anything..." [(ngModel)]="inputText">
+        <button (click)="submitText()">
+          Send
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
