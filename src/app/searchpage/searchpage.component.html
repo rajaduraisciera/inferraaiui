@@ -2,6 +2,14 @@
 
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
 
+    <!-- <div class="textarea-container">
+      <label for="message">Results Json</label>
+      <textarea id="message" placeholder="Type your message here..." rows="6">
+  </textarea>
+
+      <div class="char-count">0 / 500</div>
+    </div> -->
+
     <!-- Text Input -->
     <div class="form-group">
       <label>Enter Search Content</label>
@@ -149,10 +157,36 @@
           </table>
         </div>
 
+        <!-- company extras -->
+        <div class="other-info" *ngIf="item.ai_data?.companydetails?.length">
+          <div class="section-title">Company Details</div>
+          <table class="metals-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Domain</th>
+                <th>Employees</th>
+                <th>Ratings</th>
+                <th>Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let m of item.ai_data.companydetails">
+                <td>{{ m.name }}</td>
+                <td>{{ m.type }}</td>
+                <td>{{ m.employees }}</td>
+                <td> <span *ngIf="m.ratings">⭐</span>{{ m.ratings }}</td>
+                <td>{{ m.address }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         <!-- apartment extras -->
         <div class="other-info" *ngIf="(item.ai_data?.aptdetails?.length) && 
         (item.ai_data?.speeds?.length === 0 && item.ai_data?.hotellist?.length === 0 && item.ai_data?.products?.length === 0 && 
-          item.ai_data?.menu_items?.length === 0 && item.ai_data?.ratings?.length === 0 && item.ai_data?.metals?.length === 0
+          item.ai_data?.menu_items?.length === 0 && item.ai_data?.ratings?.length === 0 && item.ai_data?.metals?.length === 0 &&
+          item.ai_data?.companydetails?.length === 0
         )">
           <div class="section-title">Apartment Details</div>
           <table class="metals-table">
@@ -187,3 +221,6 @@
   </div>
 
 </div>
+
+
+  <button type="submit" class="inputsearchsubmit" (click)="onSubmitSearchInput()">Search Details Submit</button>

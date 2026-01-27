@@ -110,6 +110,18 @@
   padding: 0;
 }
 
+.inputsearchsubmit
+{
+  width: 20vw;
+  height: 7vh;
+  margin-top: 0; /* remove offset */
+  text-align: center;
+  display: flex;               /* center icon inside */
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
 .inputsearch
 {
   width: 40vw;
@@ -395,4 +407,46 @@ button:disabled {
 .site-link:hover {
   text-decoration: underline;
   background: rgba(37,99,235,0.12);
+}
+
+
+.textarea-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 30px auto;
+  font-family: "Poppins", sans-serif;
+}
+
+.textarea-container label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.textarea-container textarea {
+  width: 100%;
+  min-height: 160px;
+  padding: 14px 16px;
+  font-size: 15px;
+  border-radius: 12px;
+  border: 2px solid #ddd;
+  outline: none;
+  resize: vertical;
+  transition: 0.3s ease;
+  background: #fafafa;
+}
+
+.textarea-container textarea:focus {
+  border-color: #6366f1;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.char-count {
+  text-align: right;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #666;
 }

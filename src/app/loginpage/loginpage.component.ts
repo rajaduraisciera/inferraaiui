@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 declare var google: any;
 
@@ -13,8 +14,10 @@ declare var google: any;
 })
 export class LoginpageComponent implements AfterViewInit {
 
-  constructor(private router: Router) {}
-  
+  idToken: string = '';
+
+  constructor(private router: Router) { }
+
   clientId: any = '895217786394-en7fb4m50ol4l6dtjdrj3kmgho9ul0gd.apps.googleusercontent.com';
 
   ngAfterViewInit(): void {
@@ -47,13 +50,49 @@ export class LoginpageComponent implements AfterViewInit {
   }
 
   handleLogin(response: any) {
-    const idToken = response.credential;
-    console.log("Google ID Token:", idToken);
+    this.idToken = response.credential;
+    console.log("Google ID Token:", this.idToken);
+    const userDetails = this.getUserName();    
+    if (userDetails) {
+      alert("Logged in successfully with Google!");
+      this.router.navigate(['/searchpage'], { 
+        state: { 
+          userName: userDetails.userName,
+          email: userDetails.email
+        } 
+      });
+    }
+  }
 
-    // You can navigate or send token to backend later
-    alert("Logged in successfully with Google!");
-this.router.navigate(['/searchpage'])
 
+  getUserName() {
+    if (this.idToken) {
+      try {
+        const decodedToken: any = jwtDecode(this.idToken);
+        let userName = decodedToken.name || null;
+        const given_name = decodedToken.given_name || null;
+        const family_name = decodedToken.family_name || null;
+        const email = decodedToken.email || null;
+        userName = `${given_name} ${family_name.charAt(0)}`;
+        console.log('userName:', userName);
+        console.log('given_name:', given_name);
+        console.log('family_name:', family_name);
+        console.log('userName:', userName);
+        console.log('email:', email);
+
+        return {
+          userName,
+          email
+        };
+
+      } catch (error) {
+        console.error('Error decoding JWT token:', error);
+        return null;
+      }
+    } else {
+      console.info("No login credentials found");
+      return null;
+    }
   }
 }
-  
+
