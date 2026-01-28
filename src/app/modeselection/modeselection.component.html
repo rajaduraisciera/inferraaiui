@@ -14,7 +14,7 @@
         Upload File
       </button>
 
-      <select class="searchtypedropdown" aria-label="Select Item" [(ngModel)]="selectedSearchType"
+      <select class="searchtypedropdown" aria-label="Select Item" [(ngModel)]="selectedProcessorType"
         (change)="resetSearch()">
         <option value="" disabled selected hidden>Search Type</option>
         <option value="scadaa">Scadaa</option>
@@ -27,7 +27,6 @@
 
   <!-- INPUT SECTION - Generic -->
   <div class="input-card" *ngIf="activeTab==='TEXT' && genericEnable">
-    <p style="color: black;">Generic Search</p>
     <input class="text-box" placeholder="Enter your question..." [(ngModel)]="inputText">
 
     <button class="submit-btn" (click)="submitText()" [disabled]="!inputText">
@@ -37,7 +36,6 @@
 
   <!-- INPUT SECTION - Scadaa -->
   <div class="input-card" *ngIf="activeTab==='TEXT' && scadaaEnable">
-    <p style="color: black;">Scadaa Search</p>
     <select class="searchtypedropdown" aria-label="Select Item" [(ngModel)]="selectedSubProjectType"
       (change)="searchCategoryForSubProject($event)">
       <option value="" disabled selected hidden>Sub Project</option>
@@ -49,24 +47,25 @@
       <option value="apartment">Apartment</option>
     </select>
 
-    <select class="searchtypedropdown" aria-label="Select Item" [(ngModel)]="selectedSource">
+    <select class="searchtypedropdown" aria-label="Select Item" [(ngModel)]="selectedSource"
+    (change)="searchBySourceName($event)">
       <option value="" disabled selected hidden>Sources</option>
-      <option *ngFor="let project of subProjectTypes">
+      <option *ngFor="let project of sourcenames">
         {{ project }}
       </option>
     </select>
 
-    <input class="text-box" placeholder="Enter address..." [(ngModel)]="inputText" *ngIf="addressBasedInput">
+    <input class="text-box" placeholder="Enter your question..." [(ngModel)]="inputText" *ngIf="addressBasedInput">
 
     <select class="searchtypedropdown" aria-label="Select Item" [(ngModel)]="selectedInputTypeNonAddress"
-      *ngIf="nonAddressBasedInput">
+      *ngIf="nonAddressBasedInput && selectedSource">
       <option value="" disabled selected hidden>Input Category</option>
       <option *ngFor="let inputtype of inputTypeNonAddress">
         {{ inputtype }}
       </option>
-    </select>
+    </select> 
 
-    <input class="text-box" placeholder="Enter address..." [(ngModel)]="inputText" *ngIf="nonAddressBasedInput">
+    <input class="text-box" placeholder="Enter your question..." [(ngModel)]="inputText" *ngIf="nonAddressBasedInput">
 
     <button class="submit-btn" (click)="submitText()" [disabled]="!inputText">
       Submit
@@ -77,18 +76,30 @@
 
 
   <div class="input-card" *ngIf="activeTab==='FILE'">
-    <input class="text-box" placeholder="Enter description..." [(ngModel)]="inputText">
+    <input class="text-box" placeholder="Enter s3 file path..." [(ngModel)]="inputText">
+
+<!-- File Upload -->
+    <div class="form-group">
+      <label>Or </label> &nbsp;
+      <input type="file" class="file_class" (change)="onFileSelect($event)" />
+    </div>
+
+
     <div class="file-row">
       <label>File Type</label>
-      <select [(ngModel)]="fileType">
+      <select [(ngModel)]="fileType" class="file_type">
         <option value="inputfile">Input File</option>
         <option value="resultfile">Result File</option>
       </select>
     </div>
 
-    <button class="submit-btn" (click)="upload()">
+    <button class="submit-btn" (click)="submitText()">
+          Send
+        </button>
+
+    <!-- <button class="submit-btn" (click)="upload()">
       Upload
-    </button>
+    </button> -->
   </div>
 
   <!-- MAIN CONTENT -->

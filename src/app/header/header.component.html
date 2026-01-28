@@ -5,19 +5,18 @@
             <h2>INFERA AI</h2>
         </div>
 
-        <div class="nav-right">          
-           <div class="user-dropdown" (clickOutside)="closeDropdown()">
+
+        <div class="user-dropdown" (clickOutside)="closeDropdown()">
                 <div class="user-avatar" (click)="toggleDropdown()">
                     <img [src]="'/user_logo_1.png'" alt="User Avatar">
-                    <span class="user-name" *ngIf="showUsername"></span>
+                    <span class="user-name" *ngIf="showUsername">{{this.userName}}</span>
                     <i class="fa fa-chevron-down" *ngIf="showChevron"></i>
                 </div>
-                <div class="dropdown-menu" [ngClass]="{'show': isDropdownOpen}">
-                    <!-- <div class="dropdown-user-info">
+                <!-- <div class="dropdown-menu" [ngClass]="{'show': isDropdownOpen}">
+                    <div class="dropdown-user-info">
                         <a class="dropdown-username" [routerLink]="['logout']"><i
                                 class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;LOGOUT</a>
-                    </div> -->
-                </div>
+                    </div>
+                </div> -->
             </div>
-        </div>
     </nav>
