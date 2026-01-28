@@ -55,8 +55,6 @@
       </option>
     </select>
 
-    <input class="text-box" placeholder="Enter your question..." [(ngModel)]="inputText" *ngIf="addressBasedInput">
-
     <select class="searchtypedropdown" aria-label="Select Item" [(ngModel)]="selectedInputTypeNonAddress"
       *ngIf="nonAddressBasedInput && selectedSource">
       <option value="" disabled selected hidden>Input Category</option>
@@ -65,7 +63,9 @@
       </option>
     </select> 
 
-    <input class="text-box" placeholder="Enter your question..." [(ngModel)]="inputText" *ngIf="nonAddressBasedInput">
+    <input class="text-box" placeholder="Enter promts..." [(ngModel)]="inputText" >
+
+    <input class="text-box" placeholder="Enter search term..." [(ngModel)]="inputSearchTerm">
 
     <button class="submit-btn" (click)="submitText()" [disabled]="!inputText">
       Submit

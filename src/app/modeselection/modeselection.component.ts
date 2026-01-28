@@ -46,6 +46,8 @@ export class ModeselectionComponent {
   tableKeys: string[] = [];
   tableData: any[] = [];
   searched_by: string = '';
+  inputSearchTerm: string = '';
+  input_filename: string = '';
 
   messages: {
     type: 'user' | 'bot';
@@ -190,9 +192,11 @@ export class ModeselectionComponent {
     "sub_project":"${this.selectedSubProjectType}" ,
     "source_name":"${this.selectedSource}",
     "input_type_re":"${this.selectedInputTypeNonAddress}", 
-    "file_type":"${this.fileType}" ,
+    "file_type":"${this.fileType}",
     "search_type":"${this.activeTab}",
     "search_by":"${this.searched_by}",
+    "search_term":"${this.inputSearchTerm}", 
+    "input_filename":"${this.input_filename}",
     "unique_timestamp":"${timestamp}"}`;
 
     console.log('search_payload : ', search_payload);
@@ -354,13 +358,13 @@ export class ModeselectionComponent {
         let file_name = s3_content.substring(s3_content.lastIndexOf(".com/"));
         file_name = file_name.replace(".com", "");
 
-        this.inputText = bucket_name + file_name;
+        this.input_filename = bucket_name + file_name;
 
         console.log("s3_content+---------------" + s3_content);
         console.log("bucket_name+---------------" + bucket_name);
         console.log("region_name+---------------" + region_name);
         console.log("file_name+---------------" + file_name);
-        console.log("final_s3path+---------------" + this.inputText);
+        console.log("final_s3path+---------------" + this.input_filename);
 
         const presignedUrl = response.url;
         if (!presignedUrl) {
@@ -387,7 +391,9 @@ export class ModeselectionComponent {
     this.inputText = '';
     this.selectedFile = undefined;
     this.s3Path = '';
+    this.input_filename = '';
     this.result = null;
+    this.inputSearchTerm = '';
 
 
     this.selectedProcessorType = '';
@@ -416,6 +422,7 @@ export class ModeselectionComponent {
 
   resetSearch() {
     this.inputText = '';
+    this.inputSearchTerm = '';
 
     console.log("Selected Search Type:", this.selectedProcessorType);
 
