@@ -75,16 +75,18 @@ export class ModeselectionComponent {
   switchTab(tab: Tab) {
     this.activeTab = tab;
     this.messages = [];
-    this.http.post<any>(`${this.backendUrl}/reset`, {
-      text: '',
-    }).subscribe({
-      next: () => {
-        console.log('Backend variables reset successfully');
-      },
-      error: () => {
-        console.error('Error while resetting backend variables');
-      }
-    });
+    // this.http.post<any>(`${this.backendUrl}/reset`, {
+    //   text: '',
+    // }).subscribe({
+    //   next: () => {
+    //     console.log('Backend variables reset successfully');
+    //   },
+    //   error: () => {
+    //     console.error('Error while resetting backend variables');
+    //   }
+    // });
+
+    this.reset();
   }
 
   // submitText() {
@@ -394,8 +396,7 @@ export class ModeselectionComponent {
     this.input_filename = '';
     this.result = null;
     this.inputSearchTerm = '';
-
-
+    this.fileType = '';
     this.selectedProcessorType = '';
     this.selectedSubProjectType = '';
     this.genericEnable = false;
@@ -406,7 +407,6 @@ export class ModeselectionComponent {
     this.selectedInputTypeNonAddress = '';
     this.inputTypeNonAddress = [];
     this.sourcenames = [];
-
 
     this.http.post<any>(`${this.backendUrl}/reset`, {
       text: '',
