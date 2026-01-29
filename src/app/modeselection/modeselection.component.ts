@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../header/header.component';
 import { Router } from '@angular/router';
+import { ApiService } from '../ApiService';
 
 type Tab = 'TEXT' | 'FILE';
 // type FileType = 'INPUT' | 'RESULT';
@@ -57,10 +58,7 @@ export class ModeselectionComponent {
     isJson?: boolean;
   }[] = [];
 
-  // private backendUrl = 'http://localhost:8080/api';
-  private backendUrl = 'http://localhost:8092/api';
-
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private api: ApiService) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as { userName: string, email: string };
 
@@ -217,7 +215,7 @@ export class ModeselectionComponent {
 
     console.log('search_payload : ', search_payload);
 
-    this.http.post<any>(`${this.backendUrl}/insertinputsearch`, search_payload)
+    this.api.post(`api/insertinputsearch`, search_payload)
       .subscribe({
         next: (data) => {
           console.log('input search returns : ', data);
@@ -326,13 +324,12 @@ export class ModeselectionComponent {
       isJson: false
     });
 
-    this.http.post<any>(`${this.backendUrl}/file`, {
+    this.api.post(`/api/file`, {
       text: this.inputText,
       fileType: this.fileType
     }).subscribe({
       next: (res) => {
         // this.prepareTable(res.data);
-        console.log("Response Data:", res.data);
         this.messages[processingIndex] = {
           type: 'bot',
           content: res,
@@ -359,7 +356,7 @@ export class ModeselectionComponent {
     console.log('file.type.........' + file.type);
 
     // 1. Get pre-signed URL from your backend
-    this.http.get(`http://localhost:8092/s3/get-presigned-url-ai-project?filename=${encodeURIComponent(file.name)}&filetype=${encodeURIComponent(file.type)}`)
+    this.api.get(`/s3/get-presigned-url-ai-project?filename=${encodeURIComponent(file.name)}&filetype=${encodeURIComponent(file.type)}`)
       .subscribe((response: any) => {
         // response.url must be defined!
 
@@ -422,7 +419,7 @@ export class ModeselectionComponent {
     this.inputTypeNonAddress = [];
     this.sourcenames = [];
 
-    this.http.post<any>(`${this.backendUrl}/reset`, {
+    this.api.post(`/api/reset`, {
       text: '',
     }).subscribe({
       next: () => {
@@ -479,7 +476,7 @@ export class ModeselectionComponent {
 
   getSourceName() {
 
-    this.http.get(`${this.backendUrl}/getsourcenames/` + this.selectedSubProjectType).subscribe(
+    this.api.get(`/api/getsourcenames/` + this.selectedSubProjectType).subscribe(
       (res: any) => {
         try {
           this.sourcenames = res;
@@ -503,7 +500,7 @@ export class ModeselectionComponent {
 
   getInputTypeNonAddress() {
 
-    this.http.get(`${this.backendUrl}/getinputtypes/` + this.selectedSource).subscribe(
+    this.api.get(`/api/getinputtypes/` + this.selectedSource).subscribe(
       (res: any) => {
         try {
           this.inputTypeNonAddress = res;
