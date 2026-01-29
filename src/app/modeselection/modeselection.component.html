@@ -42,7 +42,8 @@
       <option value="realestate">Realestate</option>
       <option value="ctelprocess">CTEL</option>
       <option value="countysales">County Sales</option>
-      <option value="propertyrecords">Property Records</option>
+      <option value="pr_detail_parcelid">PR Detail</option>
+      <option value="pr_detail_address">PR Address</option>
       <option value="promowatchprocess">Promowatch</option>
       <option value="apartment">Apartment</option>
     </select>
@@ -94,14 +95,51 @@
       </select>
     </div>
 
-    <button class="submit-btn" (click)="submitText()">
+    <!-- <button class="submit-btn" (click)="submitText()">
           Send
-        </button>
+        </button> -->
 
     <!-- <button class="submit-btn" (click)="upload()">
       Upload
-    </button> -->
+    </button> -->    
   </div>
+
+
+
+  <!-- INPUT SECTION - Scadaa -->
+  <div class="input-card" *ngIf="activeTab==='FILE' && scadaaEnable">
+    <select class="searchtypedropdown" aria-label="Select Item" [(ngModel)]="selectedSubProjectType"
+      (change)="searchCategoryForSubProject($event)">
+      <option value="" disabled selected hidden>Sub Project</option>
+      <option value="realestate">Realestate</option>
+      <option value="ctelprocess">CTEL</option>
+      <option value="countysales">County Sales</option>
+      <option value="pr_detail_parcelid">PR Detail</option>
+      <option value="pr_detail_address">PR Address</option>
+      <option value="promowatchprocess">Promowatch</option>
+      <option value="apartment">Apartment</option>
+    </select>
+
+    <select class="searchtypedropdown" aria-label="Select Item" [(ngModel)]="selectedSource"
+    (change)="searchBySourceName($event)">
+      <option value="" disabled selected hidden>Sources</option>
+      <option *ngFor="let project of sourcenames">
+        {{ project }}
+      </option>
+    </select>
+
+    <select class="searchtypedropdown" aria-label="Select Item" [(ngModel)]="selectedInputTypeNonAddress"
+      *ngIf="nonAddressBasedInput && selectedSource">
+      <option value="" disabled selected hidden>Input Category</option>
+      <option *ngFor="let inputtype of inputTypeNonAddress">
+        {{ inputtype }}
+      </option>
+    </select> 
+    <button class="submit-btn" (click)="submitText()" [disabled]="!inputText">
+      Submit
+    </button>
+  </div>
+
 
   <!-- MAIN CONTENT -->
   <div class="content-grid">
