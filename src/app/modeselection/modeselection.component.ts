@@ -31,6 +31,8 @@ export class ModeselectionComponent {
   selectedInputTypeNonAddress: string = '';
   inputTypeNonAddress: string[] = [];
   sourcenames: string[] = [];
+  table_id: string = '';
+  timestamp: string = '';
 
   sendChat() {
     throw new Error('Method not implemented.');
@@ -141,6 +143,8 @@ export class ModeselectionComponent {
     this.onSubmitSearchInput();
 
 
+
+
     // const resultjson = '{"listings": [{"address": "795 Wigan Pier Drive,Henderson,NV 89002","price": "$675,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/795-wigan-pier-dr/lid-P00800000H5SMAeQntOKdTCi2rIB28SBAFrCDstn"},{"address": "648 Sunrise Lake Place,Henderson,NV 89002","price": "$524,999","listing_url": "https://www.coldwellbanker.com/nv/henderson/648-sunrise-lake-pl/lid-P00800000H5PYTrGg0QgVKvzyMS0FfAg9PAm26ko"},{"address": "1548 Maria Crossing Avenue,Henderson,NV 89002","price": "$370,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/1548-maria-crossing-ave/lid-P00800000H5P9OkEj4zymXfVptCwKIAxENAhnbNG"},{"address": "179 Sandhill Crane Avenue,Henderson,NV 89002","price": "$549,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/179-sandhill-crane-ave/lid-P00800000H5MVztNMxMucTE3pTvH4T3uZaBWaI8B"},{"address": "492 Waterfall Cove Court,Henderson,NV 89002","price": "$329,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/492-waterfall-cove-ct/lid-P00800000H5MVzbgPkZl361ZTsIaEe5CWVRhr7V1"},{"address": "820 Bergamont Drive,Henderson,NV 89002","price": "$364,900","listing_url": "https://www.coldwellbanker.com/nv/henderson/820-bergamont-dr/lid-P00800000H5Ijudqz8WHUYDTwq9RmIMAC0eJ5lFf"},{"address": "1008 Santa Helena Avenue,Henderson,NV 89002","price": "$895,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/1008-santa-helena-ave/lid-P00800000H5FnbDBmBDvvp2hxves2pZ6B7CntVgR"},{"address": "845 Cypress Pines Way,Henderson,NV 89002","price": "$435,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/845-cypress-pines-way/lid-P00800000H5CjFWrExg4Bi9HVTZyviBA92OhmL4P"},{"address": "984 Mackenzie Creek Avenue,Henderson,NV 89002","price": "$750,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/984-mackenzie-creek-ave/lid-P00800000H5B3Y2jwcDfrv1mgZzdyQYDrqTWpLYO"},{"address": "626 Locust Grove Street,Henderson,NV 89015","price": "$500,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/626-locust-grove-st--lot/lid-P00800000H5B3YTHNQPPDypWCzQgEA1Kbz6yjff0"},{"address": "1097 Paradise Resort Drive,Henderson,NV 89002","price": "$365,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/1097-paradise-resort-dr/lid-P00800000H5B3XttT0p65EQXVmBIYW3s0n32eBUm"},{"address": "1128 Tomasian Court,Henderson,NV 89002","price": "$695,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/1128-tomasian-ct/lid-P00800000H59gWrmkmmqQ4Z8PqPfhfc9RM29uTyx"},{"address": "805 Blue Springs Drive,Henderson,NV 89002","price": "$495,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/805-blue-springs-dr/lid-P00800000H59fO5xvcAYvGbjzLeKPkdxFu518tQo"},{"address": "231 W Horizon Ridge Parkway 1315,Henderson,NV 89012","price": "$195,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/231-w-horizon-ridge-pkwy-apt-1315/lid-P00800000H59fQo304hWqK1OIc4tM3x1eon72d0L"},{"address": "225 Autumn Court,Henderson,NV 89002","price": "$385,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/225-autumn-ct/lid-P00800000H59OslVVh90vKEQHDol59MRItalmsNo"}]}';
     const resultjson = '{"units":[{"unit_number":"739","beds":"Studio","baths":"1","sqft":"513","rent":"$1,695","available":"Feb20"},{"unit_number":"239","beds":"Studio","baths":"1","sqft":"520","rent":"$1,535","available":"Apr21"},{"unit_number":"213","beds":"1","baths":"1","sqft":"820","rent":"$1,623","available":"AvailableNow"},{"unit_number":"613","beds":"1","baths":"1","sqft":"820","rent":"$1,823","available":"AvailableNow"},{"unit_number":"413","beds":"1","baths":"1","sqft":"820","rent":"$1,668","available":"Feb1"},{"unit_number":"236","beds":"1","baths":"1","sqft":"841","rent":"$1,688","available":"AvailableNow"},{"unit_number":"405","beds":"1","baths":"1","sqft":"841","rent":"$1,738","available":"AvailableNow"},{"unit_number":"505","beds":"1","baths":"1","sqft":"841","rent":"$1,778","available":"AvailableNow"},{"unit_number":"360","beds":"1","baths":"1","sqft":"744","rent":"$1,712","available":"AvailableNow"},{"unit_number":"226","beds":"1","baths":"1","sqft":"755","rent":"$1,777","available":"AvailableNow"},{"unit_number":"526","beds":"1","baths":"1","sqft":"753","rent":"$1,807","available":"AvailableNow"},{"unit_number":"306","beds":"1","baths":"1","sqft":"753","rent":"$1,742","available":"Apr7"},{"unit_number":"483","beds":"1","baths":"1","sqft":"729","rent":"$1,747","available":"AvailableNow"},{"unit_number":"740","beds":"1","baths":"1","sqft":"729","rent":"$1,787","available":"AvailableNow"},{"unit_number":"642","beds":"1","baths":"1","sqft":"729","rent":"$1,812","available":"Feb15"},{"unit_number":"651","beds":"1","baths":"1","sqft":"1,214","rent":"$2,261","available":"AvailableNow"},{"unit_number":"751","beds":"1","baths":"1","sqft":"1,214","rent":"$2,336","available":"AvailableNow"},{"unit_number":"372","beds":"1","baths":"1","sqft":"999","rent":"$1,763","available":"Feb1"},{"unit_number":"764","beds":"1","baths":"1","sqft":"765","rent":"$1,747","available":"Feb5"},{"unit_number":"169","beds":"1","baths":"1","sqft":"745","rent":"$1,747","available":"Feb7"},{"unit_number":"437","beds":"1","baths":"1","sqft":"761","rent":"$1,722","available":"Apr10"},{"unit_number":"457","beds":"1","baths":"1","sqft":"761","rent":"$1,702","available":"Apr17"},{"unit_number":"469","beds":"1","baths":"1","sqft":"761","rent":"$1,777","available":"Jun5"},{"unit_number":"355","beds":"1","baths":"1","sqft":"1,015","rent":"$1,823","available":"Mar19"},{"unit_number":"331","beds":"2","baths":"2","sqft":"1,099","rent":"$2,026","available":"AvailableNow"},{"unit_number":"615","beds":"2","baths":"2","sqft":"1,099","rent":"$2,296","available":"AvailableNow"},{"unit_number":"431","beds":"2","baths":"2","sqft":"1,099","rent":"$2,056","available":"Apr8"},{"unit_number":"523","beds":"2","baths":"2","sqft":"1,216","rent":"$2,221","available":"AvailableNow"},{"unit_number":"571","beds":"2","baths":"2","sqft":"1,216","rent":"$2,261","available":"AvailableNow"},{"unit_number":"556","beds":"2","baths":"2","sqft":"1,290","rent":"$2,251","available":"AvailableNow"}]}';
 
@@ -161,15 +165,15 @@ export class ModeselectionComponent {
     });
 
     this.prepareTable(resultjson);
-        this.messages[processingIndex] = {
-          type: 'bot',
-          content: resultjson,
-          // title: res.title,
-          // detailurl: res.detailurl,
-          isJson: true
-        };
+    this.messages[processingIndex] = {
+      type: 'bot',
+      content: resultjson,
+      // title: res.title,
+      // detailurl: res.detailurl,
+      isJson: true
+    };
 
-        this.reset();
+    this.reset();
 
 
 
@@ -198,8 +202,8 @@ export class ModeselectionComponent {
   }
 
   onSubmitSearchInput() {
-    const timestamp = Date.now().toString() + Math.floor(Math.random() * 10000);
-    console.log('timestamp....' + timestamp);
+    this.timestamp = Date.now().toString() + Math.floor(Math.random() * 10000);
+    console.log('timestamp....' + this.timestamp);
 
     const search_payload = `{"search_content":"${this.inputText}",
     "processor_type":"${this.selectedProcessorType}", 
@@ -211,14 +215,21 @@ export class ModeselectionComponent {
     "search_by":"${this.searched_by}",
     "search_term":"${this.inputSearchTerm}", 
     "input_filename":"${this.input_filename}",
-    "unique_timestamp":"${timestamp}"}`;
+    "unique_timestamp":"${this.timestamp}"}`;
 
     console.log('search_payload : ', search_payload);
 
-    this.http.post<any>(environment.endpoint+`/api/insertinputsearch`, search_payload)
+    this.http.post<any>(environment.endpoint + `/api/insertinputsearch`, search_payload)
       .subscribe({
         next: (data) => {
+          this.table_id = data;
           console.log('input search returns : ', data);
+
+          const result_payload = `{"agg_master_id":"${this.table_id}",
+    "unique_timestamp":"${this.timestamp}"}`;
+          console.log("table_id...." + this.table_id);
+          console.log("result_payload : ", result_payload);
+
           alert("Search Details Submitted!");
         },
         error: (error) => {
@@ -255,51 +266,66 @@ export class ModeselectionComponent {
   }
 
   prepareTable(data: any) {
-
     console.log('Raw data:', data);
 
-    // 1️⃣ If string → parse JSON
+    // 1️⃣ Parse JSON string if needed
     if (typeof data === 'string') {
       try {
         data = JSON.parse(data);
       } catch (e) {
-        console.error('Invalid JSON:', data);
+        console.error('Invalid JSON string:', data);
+        this.tableData = [];
+        this.tableKeys = [];
         return;
       }
     }
 
-    // 2️⃣ If wrapped inside "results"
-    if (data && Array.isArray(data.results)) {
+    // 2️⃣ Handle different data structures
+    let extractedData: any[] = [];
 
-      this.tableData = data.results;
-
-    }
-    // 3️⃣ If direct array
-    else if (Array.isArray(data)) {
-
-      this.tableData = data;
-
-    }
-    // 4️⃣ If single object
-    else if (typeof data === 'object') {
-
-      this.tableData = [data];
-
-    }
+    if (data && typeof data === 'object') {
+      // Check if data has a nested array property (like 'results', 'units', 'listings', etc.)
+      const nestedArrayKey = Object.keys(data).find(key => Array.isArray(data[key]));
+      
+      if (nestedArrayKey && data[nestedArrayKey].length > 0) {
+        // Extract nested array (e.g., data.results, data.units, data.listings)
+        extractedData = data[nestedArrayKey];
+      } 
+      else if (Array.isArray(data)) {
+        // Direct array
+        extractedData = data;
+      } 
+      else {
+        // Single object - convert to array for consistent handling
+        extractedData = [data];
+      }
+    } 
     else {
       console.error('Unsupported data format:', data);
       this.tableData = [];
+      this.tableKeys = [];
+      return;
     }
 
-    // 5️⃣ Extract table headers
+    // 3️⃣ Set table data
+    this.tableData = extractedData;
+
+    // 4️⃣ Dynamically extract all unique keys from all objects (in case keys vary)
     if (this.tableData.length > 0) {
-      this.tableKeys = Object.keys(this.tableData[0]);
+      const allKeys = new Set<string>();
+      this.tableData.forEach(row => {
+        if (row && typeof row === 'object') {
+          Object.keys(row).forEach(key => allKeys.add(key));
+        }
+      });
+      this.tableKeys = Array.from(allKeys);
     } else {
       this.tableKeys = [];
     }
 
     console.log('Final Table Data:', this.tableData);
-    console.log('Table Keys:', this.tableKeys);
+    console.log('Dynamic Table Keys (Headers):', this.tableKeys);
+    console.log(`Prepared ${this.tableData.length} rows with ${this.tableKeys.length} columns`);
   }
 
 
@@ -324,7 +350,7 @@ export class ModeselectionComponent {
       isJson: false
     });
 
-    this.http.post<any>(environment.endpoint+`/api/file`, {
+    this.http.post<any>(environment.endpoint + `/api/file`, {
       text: this.inputText,
       fileType: this.fileType
     }).subscribe({
@@ -356,7 +382,7 @@ export class ModeselectionComponent {
     console.log('file.type.........' + file.type);
 
     // 1. Get pre-signed URL from your backend
-    this.http.get(environment.endpoint+`/s3/get-presigned-url-ai-project?filename=${encodeURIComponent(file.name)}&filetype=${encodeURIComponent(file.type)}`)
+    this.http.get(environment.endpoint + `/s3/get-presigned-url-ai-project?filename=${encodeURIComponent(file.name)}&filetype=${encodeURIComponent(file.type)}`)
       .subscribe((response: any) => {
         // response.url must be defined!
 
@@ -418,17 +444,19 @@ export class ModeselectionComponent {
     this.selectedInputTypeNonAddress = '';
     this.inputTypeNonAddress = [];
     this.sourcenames = [];
+    this.timestamp = '';
+    this.table_id = '';
 
-    this.http.post<any>(environment.endpoint+`/api/reset`, {
-      text: '',
-    }).subscribe({
-      next: () => {
-        console.log('Backend variables reset successfully');
-      },
-      error: () => {
-        console.error('Error while resetting backend variables');
-      }
-    });
+    // this.http.post<any>(environment.endpoint + `/api/reset`, {
+    //   text: '',
+    // }).subscribe({
+    //   next: () => {
+    //     console.log('Backend variables reset successfully');
+    //   },
+    //   error: () => {
+    //     console.error('Error while resetting backend variables');
+    //   }
+    // });
   }
 
   resetSearch() {
@@ -476,7 +504,7 @@ export class ModeselectionComponent {
 
   getSourceName() {
 
-    this.http.get(environment.endpoint+`/api/getsourcenames/` + this.selectedSubProjectType).subscribe(
+    this.http.get(environment.endpoint + `/api/getsourcenames/` + this.selectedSubProjectType).subscribe(
       (res: any) => {
         try {
           this.sourcenames = res;
@@ -500,7 +528,7 @@ export class ModeselectionComponent {
 
   getInputTypeNonAddress() {
 
-    this.http.get(environment.endpoint+`/api/getinputtypes/` + this.selectedSource).subscribe(
+    this.http.get(environment.endpoint + `/api/getinputtypes/` + this.selectedSource).subscribe(
       (res: any) => {
         try {
           this.inputTypeNonAddress = res;
