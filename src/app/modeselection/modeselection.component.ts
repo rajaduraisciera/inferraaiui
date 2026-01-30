@@ -90,64 +90,11 @@ export class ModeselectionComponent {
     this.reset();
   }
 
-  // submitText() {
-  //   console.log("enters into submitText function");
-  //   if (!this.inputText?.trim()) return;
-
-  //   // user message
-  //   this.messages.push({
-  //     type: 'user',
-  //     content: this.inputText,
-  //     isJson: false
-  //   });
-
-  //   // processing message
-  //   const processingIndex = this.messages.length;
-  //   this.messages.push({
-  //     type: 'bot',
-  //     content: 'Processing...',
-  //     isJson: false
-  //   });
-
-  //   this.http.post<any>(`${this.backendUrl}/text`, {
-  //     text: this.inputText
-  //   }).subscribe({
-  //     next: (res) => {
-  //       this.prepareTable(res.data);
-  //       this.messages[processingIndex] = {
-  //         type: 'bot',
-  //         content: res.data,
-  //         title: res.title,
-  //         detailurl: res.detailurl,
-  //         isJson: true
-  //       };
-  //     },
-  //     error: () => {
-  //       this.messages[processingIndex] = {
-  //         type: 'bot',
-  //         content: '❌ Error while processing text',
-  //         isJson: false
-  //       };
-  //     }
-  //   });
-
-  //   this.inputText = '';
-  // }
-
   submitText() {
     console.log("enters into submitText function");
     if (!this.inputText?.trim()) return;
 
-
-
-
     this.onSubmitSearchInput();
-
-
-
-
-
-
 
     // this.http.post<any>(`${this.backendUrl}/text`, {
     //   text: this.inputText
@@ -205,77 +152,60 @@ export class ModeselectionComponent {
           alert("Search Details Submitted!");
 
 
+      if (this.table_id) {
+        this.loading = true;
+        this.http.post<any>(environment.endpoint + `/api/processed`, result_payload, { 
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+          .subscribe({
+                next: (data) => {
+                  let resultjson_full = JSON.stringify(data);
+                  // console.log('results json..........:', data);
+                  this.loading = false;
 
+                  // const resultjson_full = '{"id": 4,"unique_timestamp": "456789258669855","parser_s3_path": "s3://ctel/ai_poc/parserdata/2026/jan/2026-01-30/singleoutput/1_1_list_apartment_details1769758399893.txt","data": {"units": [{"bedrooms": 2,"unit_number": "104","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 1299.0},{"bedrooms": 2,"unit_number": "106","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 1149.0},{"bedrooms": 2,"unit_number": "118","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 1299.0},{"bedrooms": 2,"unit_number": "119","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 999.0},{"bedrooms": 1,"unit_number": "126","address": "1006 W Main Street, Mesa AZ 85201","sqft": 680.0,"bathrooms": 1,"rent": 1059.0},{"bedrooms": 2,"unit_number": "303","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 1199.0},{"bedrooms": 2,"unit_number": "305","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 999.0},{"bedrooms": 2,"unit_number": "314","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 1299.0},{"bedrooms": 2,"unit_number": "315","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 999.0}]}}';
 
+                  // Parse and extract the 'data' property
+                  const parsedJson = JSON.parse(resultjson_full);
+                  const dataContent = parsedJson.data;
+                  console.log('Extracted data:', dataContent);
 
+                  const resultjson = JSON.stringify(dataContent);
 
+                  // user message
+                  this.messages.push({
+                    type: 'user',
+                    content: this.inputText,
+                    isJson: false
+                  });
+                  // processing message
+                  const processingIndex = this.messages.length;
+                  this.messages.push({
+                    type: 'bot',
+                    content: 'Processing...',
+                    isJson: false
+                  });
 
-          // this.loading = true;
-          // this.http.post<any>(environment.endpoint + `/api/processed`, result_payload)
-          //   .subscribe({
-          //     next: (data) => {
-          //       const resultjson_full = data;
-          //       console.log('results json..........:', data);
-          //       this.loading = false;
+                  this.prepareTable(resultjson);
+                  this.messages[processingIndex] = {
+                    type: 'bot',
+                    content: resultjson,
+                    // title: res.title,
+                    // detailurl: res.detailurl,
+                    isJson: true
+                  };
 
+                  // this.reset();
 
-
-
-
-          const resultjson_full = '{"id": 4,"unique_timestamp": "456789258669855","parser_s3_path": "s3://ctel/ai_poc/parserdata/2026/jan/2026-01-30/singleoutput/1_1_list_apartment_details1769758399893.txt","data": {"units": [{"bedrooms": 2,"unit_number": "104","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 1299.0},{"bedrooms": 2,"unit_number": "106","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 1149.0},{"bedrooms": 2,"unit_number": "118","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 1299.0},{"bedrooms": 2,"unit_number": "119","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 999.0},{"bedrooms": 1,"unit_number": "126","address": "1006 W Main Street, Mesa AZ 85201","sqft": 680.0,"bathrooms": 1,"rent": 1059.0},{"bedrooms": 2,"unit_number": "303","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 1199.0},{"bedrooms": 2,"unit_number": "305","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 999.0},{"bedrooms": 2,"unit_number": "314","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 1299.0},{"bedrooms": 2,"unit_number": "315","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 999.0}]}}';
-
-          // Parse and extract the 'data' property
-          const parsedJson = JSON.parse(resultjson_full);
-          const dataContent = parsedJson.data; 
-          console.log('Extracted data:', dataContent);
-
-          const resultjson = JSON.stringify(dataContent);
-
-
-          // user message
-          this.messages.push({
-            type: 'user',
-            content: this.inputText,
-            isJson: false
-          });
-          // processing message
-          const processingIndex = this.messages.length;
-          this.messages.push({
-            type: 'bot',
-            content: 'Processing...',
-            isJson: false
-          });
-          
-          this.prepareTable(resultjson);
-          this.messages[processingIndex] = {
-            type: 'bot',
-            content: resultjson,
-            // title: res.title,
-            // detailurl: res.detailurl,
-            isJson: true
-          };
-
-          // this.reset();
-
-
-
-
-
-
-          //   },
-          //   error: (error) => {
-          //     console.error('Error:', error);
-          //     this.loading = false;
-          //   }
-          // });
-
-
-
-
-
-
-
-
+                },
+                error: (error) => {
+                  console.error('Error:', error);
+                  this.loading = false;
+                }
+              });
+          }
 
         },
         error: (error) => {
@@ -288,24 +218,6 @@ export class ModeselectionComponent {
     this.selectedFile = e.target.files[0];
   }
 
-  //   prepareTable(data: any) {
-  //     console.log("content...", data);
-  //     if (typeof data === 'string') {
-  //   data = JSON.parse(data);
-  // }
-
-  //   if (Array.isArray(data)) {
-  //     this.tableData = data;
-  //     console.log("Table Data:", this.tableData);
-  //     this.tableKeys = Object.keys(data[0] || {});
-  //   }
-
-  //   // If response is single object
-  //   else if (typeof data === 'object') {
-  //     this.tableData = [data];   // convert to array
-  //     this.tableKeys = Object.keys(data);
-  //   }
-  // }
 
   isObject(value: any): boolean {
     return value !== null && typeof value === 'object';
@@ -314,7 +226,7 @@ export class ModeselectionComponent {
   prepareTable(data: any) {
     console.log('Raw data:', data);
 
-    // 1️⃣ Parse JSON string if needed
+    // Parse JSON string if needed
     if (typeof data === 'string') {
       try {
         data = JSON.parse(data);
@@ -326,7 +238,7 @@ export class ModeselectionComponent {
       }
     }
 
-    // 2️⃣ Handle different data structures
+    // Handle different data structures
     let extractedData: any[] = [];
 
     if (data && typeof data === 'object') {
@@ -353,10 +265,10 @@ export class ModeselectionComponent {
       return;
     }
 
-    // 3️⃣ Set table data
+    // Set table data
     this.tableData = extractedData;
 
-    // 4️⃣ Dynamically extract all unique keys from all objects (in case keys vary)
+    // Dynamically extract all unique keys from all objects (in case keys vary)
     if (this.tableData.length > 0) {
       const allKeys = new Set<string>();
       this.tableData.forEach(row => {
@@ -472,7 +384,6 @@ export class ModeselectionComponent {
   }
 
   reset() {
-
     this.inputText = '';
     this.selectedFile = undefined;
     this.s3Path = '';
