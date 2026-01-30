@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../header/header.component';
 import { Router } from '@angular/router';
-import { ApiService } from '../ApiService';
+import { environment } from '../environments/environment';
 
 type Tab = 'TEXT' | 'FILE';
 // type FileType = 'INPUT' | 'RESULT';
@@ -58,7 +58,7 @@ export class ModeselectionComponent {
     isJson?: boolean;
   }[] = [];
 
-  constructor(private router: Router, private api: ApiService) {
+  constructor(private router: Router, private http: HttpClient) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as { userName: string, email: string };
 
@@ -215,7 +215,7 @@ export class ModeselectionComponent {
 
     console.log('search_payload : ', search_payload);
 
-    this.api.post(`api/insertinputsearch`, search_payload)
+    this.http.post<any>(environment.endpoint+`/api/insertinputsearch`, search_payload)
       .subscribe({
         next: (data) => {
           console.log('input search returns : ', data);
@@ -324,7 +324,7 @@ export class ModeselectionComponent {
       isJson: false
     });
 
-    this.api.post(`/api/file`, {
+    this.http.post<any>(environment.endpoint+`/api/file`, {
       text: this.inputText,
       fileType: this.fileType
     }).subscribe({
@@ -356,7 +356,7 @@ export class ModeselectionComponent {
     console.log('file.type.........' + file.type);
 
     // 1. Get pre-signed URL from your backend
-    this.api.get(`/s3/get-presigned-url-ai-project?filename=${encodeURIComponent(file.name)}&filetype=${encodeURIComponent(file.type)}`)
+    this.http.get(environment.endpoint+`/s3/get-presigned-url-ai-project?filename=${encodeURIComponent(file.name)}&filetype=${encodeURIComponent(file.type)}`)
       .subscribe((response: any) => {
         // response.url must be defined!
 
@@ -419,7 +419,7 @@ export class ModeselectionComponent {
     this.inputTypeNonAddress = [];
     this.sourcenames = [];
 
-    this.api.post(`/api/reset`, {
+    this.http.post<any>(environment.endpoint+`/api/reset`, {
       text: '',
     }).subscribe({
       next: () => {
@@ -476,7 +476,7 @@ export class ModeselectionComponent {
 
   getSourceName() {
 
-    this.api.get(`/api/getsourcenames/` + this.selectedSubProjectType).subscribe(
+    this.http.get(environment.endpoint+`/api/getsourcenames/` + this.selectedSubProjectType).subscribe(
       (res: any) => {
         try {
           this.sourcenames = res;
@@ -500,7 +500,7 @@ export class ModeselectionComponent {
 
   getInputTypeNonAddress() {
 
-    this.api.get(`/api/getinputtypes/` + this.selectedSource).subscribe(
+    this.http.get(environment.endpoint+`/api/getinputtypes/` + this.selectedSource).subscribe(
       (res: any) => {
         try {
           this.inputTypeNonAddress = res;

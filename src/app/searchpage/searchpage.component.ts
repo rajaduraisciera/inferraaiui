@@ -3,6 +3,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-searchpage',
@@ -62,7 +63,7 @@ export class SearchpageComponent {
     console.log('file.type.........' + file.type);
 
     // 1. Get pre-signed URL from your backend
-    this.http.get(`http://localhost:8092/s3/get-presigned-url-ai-project?filename=${encodeURIComponent(file.name)}&filetype=${encodeURIComponent(file.type)}`)
+    this.http.get(environment.endpoint+`/s3/get-presigned-url-ai-project?filename=${encodeURIComponent(file.name)}&filetype=${encodeURIComponent(file.type)}`)
       .subscribe((response: any) => {
         // response.url must be defined!
 
@@ -164,7 +165,7 @@ export class SearchpageComponent {
 
     this.loading = true;
 
-    this.http.get("http://localhost:8092/api/suggestions?query=" + this.query)
+    this.http.get(environment.endpoint+`/api/suggestions?query=${this.query}`)
       .subscribe({
         next: (data) => {
           this.list_of_urls = data;
@@ -191,7 +192,7 @@ export class SearchpageComponent {
     "result_s3_file_name":"${this.result_s3_file_name}",
     "searched_by":"${this.searched_by}"}`;
 
-    this.http.post<any>('http://localhost:8092/api/insertinputsearch', search_payload)
+    this.http.post<any>(environment.endpoint+`/api/insertinputsearch`, search_payload)
       .subscribe({
         next: (data) => {
           console.log('input search returns : ', data);
@@ -210,7 +211,7 @@ export class SearchpageComponent {
     console.log('Selected URL:', row);
     this.loading = true;
 
-    this.http.post<any>('http://localhost:8092/api/scrape', this.selectedRow)
+    this.http.post<any>(environment.endpoint+`/api/scrape`, this.selectedRow)
       .subscribe({
         next: (data) => {
           this.result = data;
@@ -228,4 +229,3 @@ export class SearchpageComponent {
       });
   }
 }
-
