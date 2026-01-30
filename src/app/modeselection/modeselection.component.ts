@@ -492,7 +492,7 @@ export class ModeselectionComponent {
     this.sourcenames = [];
     this.timestamp = '';
     this.table_id = '';
-        this.tableKeys = [];
+    this.tableKeys = [];
     this.tableData = [];
     this.messages = [];
 
