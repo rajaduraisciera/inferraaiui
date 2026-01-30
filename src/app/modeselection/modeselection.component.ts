@@ -214,55 +214,60 @@ export class ModeselectionComponent {
           // this.http.post<any>(environment.endpoint + `/api/processed`, result_payload)
           //   .subscribe({
           //     next: (data) => {
-          //       console.log('results : ', data);
+          //       const resultjson_full = data;
+          //       console.log('results json..........:', data);
           //       this.loading = false;
 
 
 
 
 
+          const resultjson_full = '{"id": 4,"unique_timestamp": "456789258669855","parser_s3_path": "s3://ctel/ai_poc/parserdata/2026/jan/2026-01-30/singleoutput/1_1_list_apartment_details1769758399893.txt","data": {"units": [{"bedrooms": 2,"unit_number": "104","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 1299.0},{"bedrooms": 2,"unit_number": "106","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 1149.0},{"bedrooms": 2,"unit_number": "118","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 1299.0},{"bedrooms": 2,"unit_number": "119","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 999.0},{"bedrooms": 1,"unit_number": "126","address": "1006 W Main Street, Mesa AZ 85201","sqft": 680.0,"bathrooms": 1,"rent": 1059.0},{"bedrooms": 2,"unit_number": "303","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 1199.0},{"bedrooms": 2,"unit_number": "305","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 999.0},{"bedrooms": 2,"unit_number": "314","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 1299.0},{"bedrooms": 2,"unit_number": "315","address": "1006 W Main Street, Mesa AZ 85201","sqft": 850.0,"bathrooms": 2,"rent": 999.0}]}}';
 
-                // const resultjson = '{"listings": [{"address": "795 Wigan Pier Drive,Henderson,NV 89002","price": "$675,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/795-wigan-pier-dr/lid-P00800000H5SMAeQntOKdTCi2rIB28SBAFrCDstn"},{"address": "648 Sunrise Lake Place,Henderson,NV 89002","price": "$524,999","listing_url": "https://www.coldwellbanker.com/nv/henderson/648-sunrise-lake-pl/lid-P00800000H5PYTrGg0QgVKvzyMS0FfAg9PAm26ko"},{"address": "1548 Maria Crossing Avenue,Henderson,NV 89002","price": "$370,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/1548-maria-crossing-ave/lid-P00800000H5P9OkEj4zymXfVptCwKIAxENAhnbNG"},{"address": "179 Sandhill Crane Avenue,Henderson,NV 89002","price": "$549,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/179-sandhill-crane-ave/lid-P00800000H5MVztNMxMucTE3pTvH4T3uZaBWaI8B"},{"address": "492 Waterfall Cove Court,Henderson,NV 89002","price": "$329,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/492-waterfall-cove-ct/lid-P00800000H5MVzbgPkZl361ZTsIaEe5CWVRhr7V1"},{"address": "820 Bergamont Drive,Henderson,NV 89002","price": "$364,900","listing_url": "https://www.coldwellbanker.com/nv/henderson/820-bergamont-dr/lid-P00800000H5Ijudqz8WHUYDTwq9RmIMAC0eJ5lFf"},{"address": "1008 Santa Helena Avenue,Henderson,NV 89002","price": "$895,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/1008-santa-helena-ave/lid-P00800000H5FnbDBmBDvvp2hxves2pZ6B7CntVgR"},{"address": "845 Cypress Pines Way,Henderson,NV 89002","price": "$435,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/845-cypress-pines-way/lid-P00800000H5CjFWrExg4Bi9HVTZyviBA92OhmL4P"},{"address": "984 Mackenzie Creek Avenue,Henderson,NV 89002","price": "$750,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/984-mackenzie-creek-ave/lid-P00800000H5B3Y2jwcDfrv1mgZzdyQYDrqTWpLYO"},{"address": "626 Locust Grove Street,Henderson,NV 89015","price": "$500,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/626-locust-grove-st--lot/lid-P00800000H5B3YTHNQPPDypWCzQgEA1Kbz6yjff0"},{"address": "1097 Paradise Resort Drive,Henderson,NV 89002","price": "$365,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/1097-paradise-resort-dr/lid-P00800000H5B3XttT0p65EQXVmBIYW3s0n32eBUm"},{"address": "1128 Tomasian Court,Henderson,NV 89002","price": "$695,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/1128-tomasian-ct/lid-P00800000H59gWrmkmmqQ4Z8PqPfhfc9RM29uTyx"},{"address": "805 Blue Springs Drive,Henderson,NV 89002","price": "$495,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/805-blue-springs-dr/lid-P00800000H59fO5xvcAYvGbjzLeKPkdxFu518tQo"},{"address": "231 W Horizon Ridge Parkway 1315,Henderson,NV 89012","price": "$195,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/231-w-horizon-ridge-pkwy-apt-1315/lid-P00800000H59fQo304hWqK1OIc4tM3x1eon72d0L"},{"address": "225 Autumn Court,Henderson,NV 89002","price": "$385,000","listing_url": "https://www.coldwellbanker.com/nv/henderson/225-autumn-ct/lid-P00800000H59OslVVh90vKEQHDol59MRItalmsNo"}]}';
-                const resultjson = '{"units":[{"unit_number":"739","beds":"Studio","baths":"1","sqft":"513","rent":"$1,695","available":"Feb20"},{"unit_number":"239","beds":"Studio","baths":"1","sqft":"520","rent":"$1,535","available":"Apr21"},{"unit_number":"213","beds":"1","baths":"1","sqft":"820","rent":"$1,623","available":"AvailableNow"},{"unit_number":"613","beds":"1","baths":"1","sqft":"820","rent":"$1,823","available":"AvailableNow"},{"unit_number":"413","beds":"1","baths":"1","sqft":"820","rent":"$1,668","available":"Feb1"},{"unit_number":"236","beds":"1","baths":"1","sqft":"841","rent":"$1,688","available":"AvailableNow"},{"unit_number":"405","beds":"1","baths":"1","sqft":"841","rent":"$1,738","available":"AvailableNow"},{"unit_number":"505","beds":"1","baths":"1","sqft":"841","rent":"$1,778","available":"AvailableNow"},{"unit_number":"360","beds":"1","baths":"1","sqft":"744","rent":"$1,712","available":"AvailableNow"},{"unit_number":"226","beds":"1","baths":"1","sqft":"755","rent":"$1,777","available":"AvailableNow"},{"unit_number":"526","beds":"1","baths":"1","sqft":"753","rent":"$1,807","available":"AvailableNow"},{"unit_number":"306","beds":"1","baths":"1","sqft":"753","rent":"$1,742","available":"Apr7"},{"unit_number":"483","beds":"1","baths":"1","sqft":"729","rent":"$1,747","available":"AvailableNow"},{"unit_number":"740","beds":"1","baths":"1","sqft":"729","rent":"$1,787","available":"AvailableNow"},{"unit_number":"642","beds":"1","baths":"1","sqft":"729","rent":"$1,812","available":"Feb15"},{"unit_number":"651","beds":"1","baths":"1","sqft":"1,214","rent":"$2,261","available":"AvailableNow"},{"unit_number":"751","beds":"1","baths":"1","sqft":"1,214","rent":"$2,336","available":"AvailableNow"},{"unit_number":"372","beds":"1","baths":"1","sqft":"999","rent":"$1,763","available":"Feb1"},{"unit_number":"764","beds":"1","baths":"1","sqft":"765","rent":"$1,747","available":"Feb5"},{"unit_number":"169","beds":"1","baths":"1","sqft":"745","rent":"$1,747","available":"Feb7"},{"unit_number":"437","beds":"1","baths":"1","sqft":"761","rent":"$1,722","available":"Apr10"},{"unit_number":"457","beds":"1","baths":"1","sqft":"761","rent":"$1,702","available":"Apr17"},{"unit_number":"469","beds":"1","baths":"1","sqft":"761","rent":"$1,777","available":"Jun5"},{"unit_number":"355","beds":"1","baths":"1","sqft":"1,015","rent":"$1,823","available":"Mar19"},{"unit_number":"331","beds":"2","baths":"2","sqft":"1,099","rent":"$2,026","available":"AvailableNow"},{"unit_number":"615","beds":"2","baths":"2","sqft":"1,099","rent":"$2,296","available":"AvailableNow"},{"unit_number":"431","beds":"2","baths":"2","sqft":"1,099","rent":"$2,056","available":"Apr8"},{"unit_number":"523","beds":"2","baths":"2","sqft":"1,216","rent":"$2,221","available":"AvailableNow"},{"unit_number":"571","beds":"2","baths":"2","sqft":"1,216","rent":"$2,261","available":"AvailableNow"},{"unit_number":"556","beds":"2","baths":"2","sqft":"1,290","rent":"$2,251","available":"AvailableNow"}]}';
+          // Parse and extract the 'data' property
+          const parsedJson = JSON.parse(resultjson_full);
+          const dataContent = parsedJson.data; 
+          console.log('Extracted data:', dataContent);
 
-                // const resultjson = '{"id": 4,"unique_timestamp": "17697539644477674","parser_s3_path": "s3://ctel/ai_poc/parserdata/2026/jan/2026-01-29/1_2_list_me_the_address_from_this_file1769692526556.txt","data":{"fields_provided": [ "address", "city", "state", "zip", "price", "date_sold" ], "sample_record": { "address": "100 Golden Isles Drive ph-8", "city": "Hallandale Beach", "state": "FL", "zip": "33009", "price": "$230,000", "date_sold": "Jun-02-2020" } } }';
-
-                // user message
-                this.messages.push({
-                  type: 'user',
-                  content: this.inputText,
-                  isJson: false
-                });
-                // processing message
-                const processingIndex = this.messages.length;
-                this.messages.push({
-                  type: 'bot',
-                  content: 'Processing...',
-                  isJson: false
-                });
-
-                this.prepareTable(resultjson);
-                this.messages[processingIndex] = {
-                  type: 'bot',
-                  content: resultjson,
-                  // title: res.title,
-                  // detailurl: res.detailurl,
-                  isJson: true
-                };
-
-                this.reset();
+          const resultjson = JSON.stringify(dataContent);
 
 
+          // user message
+          this.messages.push({
+            type: 'user',
+            content: this.inputText,
+            isJson: false
+          });
+          // processing message
+          const processingIndex = this.messages.length;
+          this.messages.push({
+            type: 'bot',
+            content: 'Processing...',
+            isJson: false
+          });
+          
+          this.prepareTable(resultjson);
+          this.messages[processingIndex] = {
+            type: 'bot',
+            content: resultjson,
+            // title: res.title,
+            // detailurl: res.detailurl,
+            isJson: true
+          };
+
+          // this.reset();
 
 
 
 
-            //   },
-            //   error: (error) => {
-            //     console.error('Error:', error);
-            //     this.loading = false;
-            //   }
-            // });
+
+
+          //   },
+          //   error: (error) => {
+          //     console.error('Error:', error);
+          //     this.loading = false;
+          //   }
+          // });
 
 
 
@@ -487,6 +492,9 @@ export class ModeselectionComponent {
     this.sourcenames = [];
     this.timestamp = '';
     this.table_id = '';
+        this.tableKeys = [];
+    this.tableData = [];
+    this.messages = [];
 
     // this.http.post<any>(environment.endpoint + `/api/reset`, {
     //   text: '',
